@@ -37,7 +37,7 @@ public class ForecastFragment extends Fragment {
         linearLayout.addView(day);
         linearLayout.addView(weatherIcon);
 
-        v.setBackgroundColor(0xFFFFFFFF);
+        v.setBackgroundColor(0xFF00FF00);
         return v;
     }
 }
