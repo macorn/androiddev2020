@@ -14,30 +14,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_weather, null,false);
-        LinearLayout linearLayout = v.findViewById(R.id.main_activity);
-        TextView day = new TextView(getActivity());
-        day.setText("Thursday");
-        day.setPadding(10,10,10,10);
-        day.setTextSize(35);
-        day.setTypeface(null, Typeface.BOLD);
-        day.setGravity(Gravity.CENTER);
-        ImageView weatherIcon = new ImageView(getActivity());
-        weatherIcon.setImageResource(R.drawable.dayrainyful);
-        weatherIcon.setScaleType(ImageView.ScaleType.CENTER);
-        weatherIcon.setScaleX((float) 0.5);
-        weatherIcon.setScaleY((float) 0.5);
-        weatherIcon.setAdjustViewBounds(true);
-
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setGravity(Gravity.CENTER);
-        linearLayout.addView(day);
-        linearLayout.addView(weatherIcon);
-
-        v.setBackgroundColor(0xFF00FF00);
+        final String days[] = {"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+        ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_forecast,null,false);
+        Random rd = new Random();
+        LinearLayout linearLayout = v.findViewById(R.id.fragmentForcast);
+        for(int i=0; i<10; ++i){
+            View row = inflater.inflate(R.layout.weather_row,container,false);
+            ((TextView)row.findViewById(R.id.day)).setText(days[i%7]);
+            ((TextView)row.findViewById(R.id.city)).setText("Paris");
+            ((TextView)row.findViewById(R.id.temp)).setText(String.valueOf(rd.nextInt()%10+10) + "°C - " + String.valueOf(rd.nextInt()%10 +20) +"°C");
+            ((ImageView)row.findViewById(R.id.weather)).setImageResource(R.drawable.daycloudyful);
+            linearLayout.addView(row);
+        }
         return v;
     }
 }
