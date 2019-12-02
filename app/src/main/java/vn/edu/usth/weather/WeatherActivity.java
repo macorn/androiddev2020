@@ -1,9 +1,18 @@
 package vn.edu.usth.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
+import com.google.android.material.tabs.TabLayout;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -12,10 +21,13 @@ public class WeatherActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-        ForecastFragment test1 = new ForecastFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.main_activity,test1).commit();
-        WeatherFragment test2 = new WeatherFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.main_activity,test2).commit();
+        PagerAdapter adapter = new HomeFragmentPagerAdapter(
+                getSupportFragmentManager());
+        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
+        pager.setOffscreenPageLimit(3);
+        pager.setAdapter(adapter);
+        /*TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(pager);*/
         Log.i(TAG, "On Create .....");
     }
     @Override
